@@ -1,19 +1,18 @@
 
 
-def test_get(client):
+def test_get_greetings(client):
 
     # act
-    login_response = client.post(
-        '/token/',
-        data={'grant_type': 'password',
-              'username': 'johndoe',
-              'password': 'secret'}).json()
-    headers = {
-        'Authorization':
-            f'{login_response["token_type"]} {login_response["access_token"]}'}
-    response = client.get('/greetings/', headers=headers)
-    print(response.status_code)
+    response = client.get('/greetings/')
 
     # assert
     assert response.status_code == 200
-    assert "username='johndoe'" in response.text
+    assert "Hello World!" in response.text
+
+
+def test_get_else(client):
+    # act
+    response = client.get('/notthere/')
+
+    # assert
+    assert response.status_code == 404
