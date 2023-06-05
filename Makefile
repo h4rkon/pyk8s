@@ -21,3 +21,6 @@ run:
 
 clean:
 	CI/clean.sh
+
+publish:
+	CI/publish.sh
